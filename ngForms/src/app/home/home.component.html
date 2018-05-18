@@ -1,0 +1,81 @@
+<div class="container floatLeft w50" *ngIf="languages.length === 0">
+    Loading...
+</div>
+<div class="container floatLeft w50" *ngIf="languages.length > 0">
+    <h3>Employee Form</h3>
+    <form #form="ngForm" (submit)="submitForm(form)">
+        <div class="row form-group" [class.has-error]="firstName.invalid && firstName.touched">
+            <div class="col-sm-3 textCenter">
+                <label class="control-label">First Name</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="text" #firstName="ngModel" pattern="...+"
+                class="form-control" name="firstName" [(ngModel)]="model.firstName" required>
+                <div *ngIf="firstName.invalid && firstName.touched" class="alert alert-danger">
+                    First Name is required
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" [class.has-error]="lastName.invalid && lastName.touched">
+            <div class="col-sm-3 textCenter control-label">
+                <label class="control-label">Last Name</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="text" #lastName="ngModel" pattern="...+" class="form-control" name="lastName" 
+                    [(ngModel)]="model.lastName" required>
+                <div *ngIf="lastName.invalid && lastName.touched" class="alert alert-danger">
+                    Last Name is required
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3 textCenter">
+                Full Time Employee
+            </div>
+            <div class="col-sm-5">
+                <input type="radio" class="radio" name="isFullTimeEmployee" [(ngModel)]="model.isFullTimeEmployee" value="Yes"> Yes (W2)
+            </div>
+            <div class="col-sm-4">
+                <input type="radio" class="radio" name="isFullTimeEmployee" [(ngModel)]="model.isFullTimeEmployee" value="No"> No (1099)
+            </div>            
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3 textCenter">
+                <label>Payment Type:</label>
+            </div>
+            <div class="col-sm-5">
+                <input type="radio" class="radio" name="payType" [(ngModel)]="model.payType" value="W2"> W2
+            </div>
+            <div class="col-sm-4">
+                <input type="radio" class="radio" name="payType" [(ngModel)]="model.payType" value="1099"> 1099
+            </div>
+        </div>
+
+        <div class="row form-group" [class.has-error]="hasPrimaryLanguageError">
+            <div class="col-sm-3 textCenter">
+                <label class="control-label">Primary Language:</label>
+            </div>
+            <div class="col-sm-9">                
+                <select class="form-control" #primaryLanguage name="primaryLanguage" [(ngModel)]="model.primaryLanguage"                 
+                 (change)="validatePrimaryLanguage(primaryLanguage.value)">
+                    <option value="default">Select a Language...</option>
+                    <option *ngFor="let lang of languages">
+                        {{lang}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-sm-3 textCenter">
+                <label>Date Hired:</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="dateHired" [(ngModel)]="model.dateHired" required>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" [disabled]="form.invalid" type="submit">OK</button>
+       
+    </form>
+</div>

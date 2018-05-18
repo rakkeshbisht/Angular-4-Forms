@@ -1,0 +1,12 @@
+.floatLeft{
+    float: left;
+}
+
+.floatRight{
+    float: right;
+}
+
+.textCenter{
+    text-align: left;
+    float: left;
+}
